@@ -14,7 +14,7 @@ export default function App() {
 	const login = Login();// must be here eles gets error 'used more hooeks than previous state'
 
 	useEffect(() => {
-		fetch(Consts.API + '/UserAPI/IsAuthorized', { credentials: 'include' }).then(data => {
+		fetch(Consts.API + '/UserAPI/IsAuthorized').then(data => {
 			if (data.status != 200) {
 				deleteCookie("UID-API");
 			} else {
