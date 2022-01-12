@@ -13,7 +13,7 @@ pool:
 variables:
   stage: development
   serviceConnection: MidiServiceConnection
-  appServiceName: MITreinosReactFrontend
+  appServiceName: mitreinosreactfront
  
 steps:
 - task: NodeTool@0
