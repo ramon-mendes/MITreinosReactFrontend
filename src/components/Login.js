@@ -5,7 +5,6 @@ import * as Consts from '../consts.js';
 
 async function loginUser(credentials) {
 	const data = await fetch(Consts.API + '/UserAPI/Login', {
-		credentials: 'include',
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
