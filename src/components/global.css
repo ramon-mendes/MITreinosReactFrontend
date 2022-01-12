@@ -1,0 +1,121 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,700&display=swap");
+.hidden {
+  display: none !important; }
+
+.hidden2 {
+  display: none; }
+
+.row-fluid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; }
+
+html {
+  height: 100%;
+  font-size: 14px; }
+
+body {
+  height: 100%;
+  max-height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Open Sans', sans-serif;
+  color: #444444;
+  background: #f8f9fa; }
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column; }
+
+a:hover {
+  text-decoration: none; }
+
+img {
+  max-width: 100%; }
+
+button {
+  background: none;
+  border: none; }
+
+svg {
+  fill: currentColor;
+  width: 16px;
+  height: 16px; }
+
+svg.big {
+  width: 18px;
+  height: 18px; }
+
+svg.txt {
+  vertical-align: middle;
+  margin-bottom: 2px; }
+
+.btn svg {
+  vertical-align: middle;
+  margin-bottom: 2px;
+  margin-right: 3px; }
+
+.flex-spacer {
+  flex: 1; }
+
+.spacer {
+  flex-grow: 1; }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  background: #3498DB;
+  color: white;
+  flex-basis: 60px;
+  flex-shrink: 0;
+  height: 60px; }
+  nav #menu-toggler {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    padding: 8px 14px;
+    font-size: 22px;
+    border-right: solid 1px #77B5DE;
+    cursor: pointer;
+    transition: color linear 150ms; }
+    nav #menu-toggler:hover {
+      color: white; }
+  nav #user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 15px; }
+    nav #user .round {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #FDA5FA;
+      color: white;
+      height: 32px;
+      width: 32px;
+      border-radius: 50%; }
+    nav #user .btn {
+      text-decoration: none;
+      color: inherit; }
+
+main {
+  flex-grow: 1;
+  flex-direction: column;
+  display: flex;
+  max-height: calc(100% - 60px);
+  align-items: stretch; }
+  main .backdrop {
+    display: none;
+    background-color: #062b36;
+    opacity: 0.8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9; }
+    main .backdrop.active {
+      display: block; }

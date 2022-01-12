@@ -1,0 +1,38 @@
+﻿.main-login
+{
+	height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: #3498DB;
+
+	h1 { margin-bottom: 30px; font-size: 30px; color: white; }
+	img { margin-bottom: 20px; }
+
+	#area-login
+	{
+		padding: 25px;
+		padding-bottom: 30px;
+		background: #fff;
+		border-radius: 10px;
+		margin-bottom: 100px;
+	
+		.input-group
+		{
+			margin-bottom: 8px;
+
+			input
+			{
+				background: #FFF7C5;
+				border-color: transparent;
+				font-size: 15px;
+
+				&:hover { border-color: black; }
+			}
+		}
+
+		button { height: 38px; }
+	}
+}

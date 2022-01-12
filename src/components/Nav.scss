@@ -1,0 +1,73 @@
+﻿@import '_vars.scss';
+
+nav
+{
+	display: flex;
+	justify-content: space-between;
+	background: #3498DB;
+	color: white;
+
+	flex-basis: $NAVBAR_H;
+	flex-shrink: 0;
+	height: 60px;
+
+	#menu-toggler
+	{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		width: $SIDEBAR_W;
+		padding: 8px 14px;
+		font-size: 22px;
+		border-right: solid 1px #77B5DE;
+		cursor: pointer;
+
+		transition: color linear 150ms;
+		&:hover { color: white; }
+	}
+
+	#user
+	{
+		margin-right: 15px;
+		
+		a.btn
+		{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		@media (max-width: 576px)
+		{
+			#username
+			{
+				display: none;
+			}
+		}
+
+		#username
+		{
+			margin-left: 5px;
+		}
+
+		.round
+		{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			background: #FDA5FA;
+			color: white;
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+		}
+
+		.btn
+		{
+			text-decoration: none;
+			color: inherit;
+		}
+	}
+}
