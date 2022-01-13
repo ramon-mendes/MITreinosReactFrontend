@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLocalStorage } from 'react';
 import { Route, Switch } from 'react-router';
 import { Player } from './components/Player';
 import { Login } from './components/Login';
@@ -9,22 +9,30 @@ import './components/global.css';
 import * as Consts from './consts.js';
 
 export default function App() {
-	const [value, updateCookie, deleteCookie] = useCookie("UID-API");
 	const [loading, setLoading] = useState(true);
+	const [hasUID, setHasUID] = useState(localStorage.getItem(Consts.STORAGEUID));
 	const login = Login();// must be here eles gets error 'used more hooeks than previous state'
 
 	useEffect(() => {
-		fetch(Consts.API + '/UserAPI/IsAuthorized').then(data => {
-			if (data.status != 200) {
-				deleteCookie("UID-API");
-			} else {
-				setLoading(false);
-			}
-		});
+		console.log('useEffect');
+		if (setHasUID) {
+			fetch(Consts.API + '/UserAPI/IsAuthorized', { headers: Consts.GetFetchHeaders() }).then(data => {
+				if (data.status != 200) {
+					localStorage.removeItem(Consts.STORAGEUID);
+					setHasUID(undefined);
+				} else {
+					setLoading(false);
+				}
+			});
+		}
 	}, []);
 
-	if (!value)
+	console.log('render', hasUID);
+
+	if (!hasUID) {
+		console.log('Return login');
 		return login;
+	}
 	if (loading)
 		return <div></div>;
 

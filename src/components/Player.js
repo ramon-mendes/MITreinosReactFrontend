@@ -4,7 +4,8 @@ import { PlayerVideoComp } from './PlayerVideoComp';
 import { PlayerPage } from './PlayerPage';
 import { Nav } from './Nav';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { useParams, useHistory  } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import * as Consts from '../consts.js';
 
 import './Player.css';
 
@@ -31,11 +32,11 @@ export function Player() {
 	useEffect(() => {
 		async function fetchData() {
 			setLoading(true);
-			
-			const response = await fetch('/StaticAPI/GetForCourse?slug=' + course);
+
+			const response = await fetch(Consts.API + '/StaticAPI/GetForCourse?slug=' + course, { headers: Consts.GetFetchHeaders() });
 			const data = await response.json();
 
-			if(!lesson && !page) {
+			if (!lesson && !page) {
 				document.location = ('/player/' + course + '/lesson/' + data.Meta.CurrentLessonHash);
 				return;
 			}
@@ -46,9 +47,9 @@ export function Player() {
 		}
 		fetchData();
 
-		window.onresize = function() {
+		window.onresize = function () {
 			const is_mobile = window.innerWidth <= 1200;
-			if(is_mobile) {
+			if (is_mobile) {
 				document.getElementById('sidebar').setAttribute('disabled', 'true');
 				document.getElementById('sidebar').setAttribute('mobile', 'true');
 				document.body.setAttribute('mobile', 'true');
@@ -61,12 +62,12 @@ export function Player() {
 		};
 	}, []);
 
-	if(loading)
+	if (loading)
 		return <div><img src="img/loader.gif" /></div>;
 
 	return (
 		<>
-			<Nav toggleSidebar={() => setHideSidebar(!hideSidebar) } username={data.UserName}></Nav>
+			<Nav toggleSidebar={() => setHideSidebar(!hideSidebar)} username={data.UserName}></Nav>
 
 			<main className="player">
 				<div id="sidebar" disabled={hideSidebar}>
@@ -75,7 +76,7 @@ export function Player() {
 						<div className="info"><span id="watch-cnt">{Object.values(checkedmap).filter(p => !!p).length} de {data.Meta.WatchTotal}</span> aulas completas</div>
 					</div>
 
-					{data.Course.Modules.map(module => <PlayerModule course={course} module={module} curLesson={lesson} initialModule={data.Meta.CurrentModuleSlug} key={module.Slug} toggleChecked={toggleChecked} checkedmap={checkedmap}></PlayerModule>) }
+					{data.Course.Modules.map(module => <PlayerModule course={course} module={module} curLesson={lesson} initialModule={data.Meta.CurrentModuleSlug} key={module.Slug} toggleChecked={toggleChecked} checkedmap={checkedmap}></PlayerModule>)}
 				</div>
 
 				<div id="area-content">
@@ -84,20 +85,20 @@ export function Player() {
 
 					{
 						(lesson || page) &&
-							<footer>
-								<blockquote>
-									“Aprendemos a voar como os pássaros, a nadar como os peixes; mas não aprendemos a simples arte de vivermos junto como irmãos.”
-									— Martin Luther King
-								</blockquote>
+						<footer>
+							<blockquote>
+								“Aprendemos a voar como os pássaros, a nadar como os peixes; mas não aprendemos a simples arte de vivermos junto como irmãos.”
+								— Martin Luther King
+							</blockquote>
 
-								<div>
-									{lesson && <a href={"/LessonAPI/GetMP3?hash=" + lesson} target="_blank"><svg className="icon icon-file-mp3"><use xlinkHref="#file-mp3"></use></svg></a>}
-									{lesson && <svg className="icon icon-keyboard" onClick={() => setModalKeyboardIsOpen(true)}><use xlinkHref="#keyboard"></use></svg>}
-								</div>
-							</footer>
+							<div>
+								{lesson && <a href={"/LessonAPI/GetMP3?hash=" + lesson} target="_blank"><svg className="icon icon-file-mp3"><use xlinkHref="#file-mp3"></use></svg></a>}
+								{lesson && <svg className="icon icon-keyboard" onClick={() => setModalKeyboardIsOpen(true)}><use xlinkHref="#keyboard"></use></svg>}
+							</div>
+						</footer>
 					}
-					
-					<Modal isOpen={modalKeyboardIsOpen} toggle={() => setModalKeyboardIsOpen(!modalKeyboardIsOpen) }>
+
+					<Modal isOpen={modalKeyboardIsOpen} toggle={() => setModalKeyboardIsOpen(!modalKeyboardIsOpen)}>
 						<ModalHeader>
 							Atalhos de teclado
 						</ModalHeader>

@@ -11,7 +11,13 @@ async function loginUser(credentials) {
 		},
 		body: JSON.stringify(credentials)
 	});
-	return data.status == 200;
+
+	if (data.status != 200) {
+		return false;
+	}
+
+	localStorage.setItem(Consts.STORAGEUID, await data.text());
+	return true;
 }
 
 export function Login() {
@@ -25,7 +31,6 @@ export function Login() {
 			password
 		});
 		if (bOK) {
-			debugger;
 			window.location.reload();
 		}
 		else {

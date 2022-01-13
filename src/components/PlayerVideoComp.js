@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import Notifications, { notify } from 'react-notify-toast';
+import * as Consts from '../consts.js';
 
 export class PlayerVideoComp extends Component {
 	constructor(props) {
@@ -16,20 +17,20 @@ export class PlayerVideoComp extends Component {
 	}
 
 	handleKeyDown(evt) {
-		if(evt.keyCode == 37 || evt.keyCode == 39) {
-			this.player.currentTime(this.player.currentTime() + (evt.keyCode==37 ? -5 : 5));
+		if (evt.keyCode == 37 || evt.keyCode == 39) {
+			this.player.currentTime(this.player.currentTime() + (evt.keyCode == 37 ? -5 : 5));
 			return;
 		}
 	}
 
 	handleKeyPress(evt) {
-		if(evt.key == '+')
+		if (evt.key == '+')
 			this.state.curSpeed += 0.25;
-		else if(evt.key == '-')
+		else if (evt.key == '-')
 			this.state.curSpeed -= 0.25;
 		else
 			return;
-		if(this.state.curSpeed < 0.25)
+		if (this.state.curSpeed < 0.25)
 			this.state.curSpeed = 0.25;
 
 		this.videoRef.current.playbackRate = this.state.curSpeed;
@@ -47,7 +48,7 @@ export class PlayerVideoComp extends Component {
 		async function fetchData() {
 			comp.setState({ loading: true });
 
-			const response = await fetch(`/LessonAPI/GetForHash?hash=${comp.props.lessonHash}`);
+			const response = await fetch(Consts.API + `/LessonAPI/GetForHash?hash=${comp.props.lessonHash}`, { headers: Consts.GetFetchHeaders() });
 			const data = await response.json();
 
 			comp.setState({ data: data, loading: false });
@@ -66,7 +67,7 @@ export class PlayerVideoComp extends Component {
 	// destroy player on unmount
 	componentWillUnmount() {
 		document.removeEventListener("keypress", this.bindedHandleKeyPress, false);
-		if(this.player) {
+		if (this.player) {
 			this.player.dispose()
 		}
 	}
@@ -108,7 +109,7 @@ export class PlayerVideoComp extends Component {
 							<div className="txt-title">
 								{this.state?.data?.NextLessonTitle}
 							</div>
-						</div> 
+						</div>
 
 						<svg className="icon icon-right-arrow"><use xlinkHref="#right-arrow"></use></svg>
 					</Link>
@@ -129,7 +130,7 @@ export class PlayerVideoComp extends Component {
 						<div className="col-lg-4 col-xl-3">
 							<div id="meta">
 								<div className="btn-wrap btn-wrap-marcar">
-									<div id="btn-marcar" className={"btn-main btn-check-hoverer " + (checked ? "checked" : "")} onClick={ () => this.toggleCompleted() }>
+									<div id="btn-marcar" className={"btn-main btn-check-hoverer " + (checked ? "checked" : "")} onClick={() => this.toggleCompleted()}>
 										<div className={"btn-check btn-check-fx " + (checked ? "checked" : "")}>
 											<svg className="icon icon-check"><use xlinkHref="#check"></use></svg>
 										</div>
