@@ -77,7 +77,7 @@ export class PlayerVideoComp extends Component {
 	}
 
 	async setStars(n) {
-		const response = await fetch(`/LessonAPI/SetStars?hash=${this.props.lessonHash}&stars=${n}`);
+		const response = await fetch(Consts.API + `/LessonAPI/SetStars?hash=${this.props.lessonHash}&stars=${n}`, { headers: Consts.GetFetchHeaders() });
 		this.state.data.Stars = n;
 		this.setState(this.state.data);
 	}

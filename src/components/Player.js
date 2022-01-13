@@ -23,7 +23,7 @@ export function Player() {
 		checkedmap[course + '-' + lesson] = checked;
 		setCheckedmap({ ...checkedmap });
 
-		const response = await fetch(`/LessonAPI/SetWatched?hash=${lesson}&watched=${checked}`);
+		const response = await fetch(Consts.API + `/LessonAPI/SetWatched?hash=${lesson}&watched=${checked}`, { headers: Consts.GetFetchHeaders() });
 		return checked;
 	}
 
@@ -92,7 +92,7 @@ export function Player() {
 							</blockquote>
 
 							<div>
-								{lesson && <a href={"/LessonAPI/GetMP3?hash=" + lesson} target="_blank"><svg className="icon icon-file-mp3"><use xlinkHref="#file-mp3"></use></svg></a>}
+								{lesson && <a href={Consts.API + "/LessonAPI/GetMP3NoAuth?hash=" + lesson} target="_blank"><svg className="icon icon-file-mp3"><use xlinkHref="#file-mp3"></use></svg></a>}
 								{lesson && <svg className="icon icon-keyboard" onClick={() => setModalKeyboardIsOpen(true)}><use xlinkHref="#keyboard"></use></svg>}
 							</div>
 						</footer>
