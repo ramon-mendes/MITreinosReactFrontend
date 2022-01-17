@@ -2,11 +2,11 @@
 import { PlayerModule } from './PlayerModule';
 import { PlayerVideoComp } from './PlayerVideoComp';
 import { PlayerPage } from './PlayerPage';
+import { MetaAccept } from './MetaAccept';
 import { Nav } from './Nav';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { useParams, useHistory } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import * as Consts from '../consts.js';
-
 import './Player.css';
 
 export function Player() {
@@ -27,6 +27,14 @@ export function Player() {
 		return checked;
 	}
 
+	async function onAccept() {
+		const response = await fetch(Consts.API + `/StaticAPI/SetCourseMeta?course=` + course, {
+			method: 'POST',
+			headers: Consts.GetFetchHeaders(),
+			body: JSON.stringify({ show_accept: false })
+		});
+	}
+
 	console.log('Player', course, lesson, page);
 
 	useEffect(() => {
@@ -35,6 +43,7 @@ export function Player() {
 
 			const response = await fetch(Consts.API + '/StaticAPI/GetForCourse?slug=' + course, { headers: Consts.GetFetchHeaders() });
 			const data = await response.json();
+			console.log(data);
 
 			if (!lesson && !page) {
 				document.location = ('/player/' + course + '/lesson/' + data.Meta.CurrentLessonHash);
@@ -43,7 +52,6 @@ export function Player() {
 			setData(data);
 			setLoading(false);
 			setCheckedmap(data.Meta.WatchedMap);
-			console.log(data);
 		}
 		fetchData();
 
@@ -62,12 +70,17 @@ export function Player() {
 		};
 	}, []);
 
-	if (loading)
-		return <div><img src="img/loader.gif" /></div>;
+	if (loading) {
+		return <div className="global-loader"><img src="img/loader.gif" /></div>;
+	}
+
+	setTimeout(() => window.onresize(), 0);
 
 	return (
 		<>
 			<Nav toggleSidebar={() => setHideSidebar(!hideSidebar)} username={data.UserName}></Nav>
+
+			{data.Course.JsonMeta.show_accept && <MetaAccept onclose={onAccept} />}
 
 			<main className="player">
 				<div id="sidebar" disabled={hideSidebar}>
@@ -75,6 +88,12 @@ export function Player() {
 						<h1>{data.Course.Title}</h1>
 						<div className="info"><span id="watch-cnt">{Object.values(checkedmap).filter(p => !!p).length} de {data.Meta.WatchTotal}</span> aulas completas</div>
 					</div>
+
+					{data.Course.Pages.map(p =>
+						<Link to={`/player/${course}/page/${p.Slug}`} className={"navigation-page-page " + (page == p.Slug ? "current" : "")} key={p.Slug}>
+							{p.Title}
+						</Link>
+					)}
 
 					{data.Course.Modules.map(module => <PlayerModule course={course} module={module} curLesson={lesson} initialModule={data.Meta.CurrentModuleSlug} key={module.Slug} toggleChecked={toggleChecked} checkedmap={checkedmap}></PlayerModule>)}
 				</div>

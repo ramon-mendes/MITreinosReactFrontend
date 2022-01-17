@@ -1,5 +1,9 @@
 ﻿import React, { useState } from 'react';
+import { PageIEOrientacoes } from './pages/PageIEOrientacoes';
 
 export function PlayerPage(props) {
-	return <div>PAGE</div>
+	if (props.pageSlug == 'ieorientacoes') {
+		return <PageIEOrientacoes />
+	}
+	return <div></div>
 }

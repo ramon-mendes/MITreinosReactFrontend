@@ -1,26 +1,25 @@
 import React, { Component, useState } from 'react';
 import { Termos } from './Termos';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { useCookie } from 'react-use';
+import * as Consts from '../consts.js';
 import './Nav.css';
 
 export function Nav(props) {
-	const [value, updateCookie, deleteCookie] = useCookie("UID-API");
 	const [ddShow, setDdShow] = useState(false);
 	const [modalTermsIsOpen, setModalTermsIsOpen] = React.useState(false);
 
-	const onDropdownClick = function(evt) {
+	const onDropdownClick = function (evt) {
 		setDdShow(!ddShow);
 		evt.preventDefault();
 	};
 
-	document.onclick = function(evt) {
-		if(evt.target.id != 'dropdownMenuLink')
+	document.onclick = function (evt) {
+		if (evt.target.id != 'dropdownMenuLink')
 			setDdShow(false);
 	}
 
-	const onLogoutClick = function(evt) {
-		deleteCookie();
+	const onLogoutClick = function (evt) {
+		localStorage.removeItem(Consts.STORAGEUID);
 	}
 
 	return (
@@ -41,10 +40,10 @@ export function Nav(props) {
 						</div>
 					</a>
 
-					<div className={ `dropdown-menu dropdown-menu-right ${ddShow ? "show" : ""}` }>
+					<div className={`dropdown-menu dropdown-menu-right ${ddShow ? "show" : ""}`}>
 						<a className="dropdown-item" href="/">Meus cursos</a>
-						<a className="dropdown-item" href="/" onClick={(evt) => { setModalTermsIsOpen(true); evt.preventDefault() } }>Termos de uso e privacidade</a>
-						<a className="dropdown-item" href="/" onClick={ onLogoutClick }>Sair</a>
+						<a className="dropdown-item" href="/" onClick={(evt) => { setModalTermsIsOpen(true); evt.preventDefault() }}>Termos de uso e privacidade</a>
+						<a className="dropdown-item" href="/" onClick={onLogoutClick}>Sair</a>
 					</div>
 				</div>
 			</div>

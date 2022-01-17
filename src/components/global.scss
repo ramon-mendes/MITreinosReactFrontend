@@ -40,7 +40,6 @@ svg.txt { vertical-align: middle; margin-bottom: 2px; }
 .flex-spacer { flex: 1; }
 .spacer { flex-grow: 1; }
 
-
 nav
 {
 	display: flex;
@@ -118,4 +117,13 @@ main
 
 		&.active { display: block; }
 	}
+}
+
+.global-loader
+{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

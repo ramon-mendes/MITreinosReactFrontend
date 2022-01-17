@@ -125,6 +125,22 @@ export class PlayerVideoComp extends Component {
 							<h2>
 								{this.state?.data?.Title}
 							</h2>
+
+							{!!this.state?.data?.Downloads?.length && <div className="downloads">
+								<div className='title'>Arquivos para download:</div>
+
+								<div className='wrap'>
+									{this.state?.data?.Downloads?.map(dl => (
+										<a href={dl.Url} key={dl.Url}>
+											<div>{dl.Filename}</div>
+											<div className='bottom'>
+												<div>{dl.Extension}</div>
+												<div>{dl.Size}</div>
+											</div>
+										</a>
+									))}
+								</div>
+							</div>}
 						</div>
 
 						<div className="col-lg-4 col-xl-3">

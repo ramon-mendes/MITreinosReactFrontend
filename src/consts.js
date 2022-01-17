@@ -1,4 +1,5 @@
-export const API = process.env.NODE_ENV === 'development'
+//export const API = process.env.NODE_ENV === 'development'
+export const API = false
     ? 'https://localhost:44308'
     : 'https://mitreinosreactbackend.azurewebsites.net';
 

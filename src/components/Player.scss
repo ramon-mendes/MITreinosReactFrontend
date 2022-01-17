@@ -1,4 +1,4 @@
-﻿@import 'vars.scss';
+﻿@import '_vars.scss';
 
 main.player
 {
@@ -66,6 +66,21 @@ main.player
 			{
 				font-size: 12px;
 				color: $graysh;
+			}
+		}
+
+		.navigation-page-page
+		{
+			display: block;
+			padding: 15px 20px;
+			font-weight: 500;
+			color: inherit;
+			border-bottom: solid 1px #E9EDF1;
+
+			&.current, &:hover
+			{
+				cursor: pointer;
+				background: #EAF4FB;
 			}
 		}
 
@@ -247,6 +262,50 @@ main.player
 				{
 					width: 100%;
 					max-width: 100%;
+				}
+
+				.downloads
+				{
+					margin-bottom: 15px;
+
+					.title
+					{
+						color: #9ba5af;
+						margin-bottom: 10px;
+					}
+
+					.wrap
+					{
+						display: flex;
+						flex-wrap: wrap;
+	
+						a
+						{
+							display: block;
+							padding: 20px;
+							background: #fff;
+							border-radius: 8px;
+							transition: all .3s ease-in;
+							color: inherit;
+							width: 198px;
+							margin-right: 15px;
+	
+							&:hover
+							{
+								background: #fff;
+								box-shadow: 0 3px 8px 0 #dce0e3;
+							}
+	
+							.bottom
+							{
+								display: flex;
+								justify-content: space-between;
+								color: #9ba5af;
+								font-size: 12px;
+								margin-top: 10px;
+							}
+						}
+					}
 				}
 			}
 

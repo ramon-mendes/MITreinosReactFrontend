@@ -4,17 +4,15 @@ import { Player } from './components/Player';
 import { Login } from './components/Login';
 import { Courses } from './components/Courses';
 import { NotFound } from './components/NotFound';
-import { useCookie } from 'react-use';
 import './components/global.css';
 import * as Consts from './consts.js';
 
 export default function App() {
 	const [loading, setLoading] = useState(true);
 	const [hasUID, setHasUID] = useState(localStorage.getItem(Consts.STORAGEUID));
-	const login = Login();// must be here eles gets error 'used more hooeks than previous state'
+	const login = Login();// must be here else gets error 'used more hooks than previous state'
 
 	useEffect(() => {
-		console.log('useEffect');
 		if (setHasUID) {
 			fetch(Consts.API + '/UserAPI/IsAuthorized', { headers: Consts.GetFetchHeaders() }).then(data => {
 				if (data.status != 200) {
@@ -27,14 +25,12 @@ export default function App() {
 		}
 	}, []);
 
-	console.log('render', hasUID);
-
 	if (!hasUID) {
-		console.log('Return login');
 		return login;
 	}
-	if (loading)
+	if (loading) {
 		return <div></div>;
+	}
 
 	return (
 		<Switch>

@@ -21,13 +21,12 @@ export function Courses() {
 	}, []);
 
 	if (loading)
-		return <div><img src="img/loader.gif" /></div>;
+		return <div className="global-loader"><img src="img/loader.gif" /></div>;
 
 	return (
 		<main className="cursos">
 			{
 				data.map(item =>
-
 					<Link to={"/player/" + item.slug} key={item.slug} className="item">
 						<div className="img" style={{ backgroundImage: `url(${item.logoURL})` }}></div>
 						<h2>{item.title}</h2>
